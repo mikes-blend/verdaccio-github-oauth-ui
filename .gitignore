@@ -1,5 +1,6 @@
 *.log
-dist
+.idea
+*.iml
 htpasswd
 node_modules
 storage

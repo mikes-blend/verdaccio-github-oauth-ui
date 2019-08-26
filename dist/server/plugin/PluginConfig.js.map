@@ -1,0 +1,1 @@
+{"version":3,"file":"PluginConfig.js","sourceRoot":"","sources":["../../../src/server/plugin/PluginConfig.ts"],"names":[],"mappings":";;AAuBa,QAAA,UAAU,GAAG,iBAAiB,CAAA;AAE3C,SAAgB,SAAS,CAAsC,MAAoB,EAAE,GAAQ;IAC3F,MAAM,KAAK,GAAG,MAAM,CAAC,WAAW,CAAC,kBAAU,CAAC,CAAC,GAAG,CAAC,CAAA;IACjD,OAAO,OAAO,CAAC,GAAG,CAAC,KAAK,CAAE,IAAI,KAAK,CAAA;AACrC,CAAC;AAHD,8BAGC"}

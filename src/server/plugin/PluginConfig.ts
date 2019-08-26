@@ -3,6 +3,8 @@ import { Config } from "../verdaccio-types"
 export interface MiddlewaresConfig {
   "client-id": string,
   "client-secret": string,
+  "github-login-hostname": string,
+  "github-api-url-base": string,
 }
 
 export interface AuthConfig {

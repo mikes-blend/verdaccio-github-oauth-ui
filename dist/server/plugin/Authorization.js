@@ -23,7 +23,7 @@ class Authorization {
          */
         this.middleware = (req, res, next) => {
             const id = (req.params.id || "");
-            const url = `https://${this.config["github-login-hostname"]}/login/oauth/authorize?` + querystring.stringify({
+            const url = `${this.config["github-login-hostname"]}/login/oauth/authorize?` + querystring.stringify({
                 client_id: process.env[this.config["client-id"]] || this.config["client-id"],
                 redirect_uri: this.getRedirectUrl(req) + (id ? `/${id}` : ""),
                 scope: "read:org",

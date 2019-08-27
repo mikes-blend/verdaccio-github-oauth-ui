@@ -30,10 +30,10 @@ class GithubOauthUiPlugin {
     constructor(config, stuff) {
         this.config = config;
         this.stuff = stuff;
-        this.github = new github_1.GithubClient(this.config);
         this.cache = {};
-        this.cliSupport = new cli_support_1.SinopiaGithubOAuthCliSupport(this.config, this.stuff);
         this.validateConfig(config);
+        this.github = new github_1.GithubClient(config);
+        this.cliSupport = new cli_support_1.SinopiaGithubOAuthCliSupport(this.config, this.stuff);
     }
     /**
      * Implements the middleware plugin interface.
@@ -98,6 +98,8 @@ class GithubOauthUiPlugin {
         this.validateConfigProp(config, `auth.${PluginConfig_1.pluginName}.org`);
         this.validateConfigProp(config, `middlewares.${PluginConfig_1.pluginName}.client-id`);
         this.validateConfigProp(config, `middlewares.${PluginConfig_1.pluginName}.client-secret`);
+        this.validateConfigProp(config, `middlewares.${PluginConfig_1.pluginName}.github-login-hostname`);
+        this.validateConfigProp(config, `middlewares.${PluginConfig_1.pluginName}.github-api-url-base`);
     }
     validateConfigProp(config, prop) {
         if (!lodash_1.get(config, prop)) {

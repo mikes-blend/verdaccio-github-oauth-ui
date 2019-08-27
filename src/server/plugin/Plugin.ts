@@ -35,15 +35,17 @@ function log(...args: any[]) {
  */
 export default class GithubOauthUiPlugin implements MiddlewarePlugin, AuthPlugin {
 
-  private readonly github = new GithubClient(this.config)
+  private github: GithubClient
   private readonly cache: { [username: string]: UserDetails } = {}
-  private readonly cliSupport = new SinopiaGithubOAuthCliSupport(this.config, this.stuff)
+  private cliSupport: SinopiaGithubOAuthCliSupport
 
   constructor(
     private config: PluginConfig,
     private stuff: any,
   ) {
     this.validateConfig(config)
+    this.github = new GithubClient(config)
+    this.cliSupport = new SinopiaGithubOAuthCliSupport(this.config, this.stuff)
   }
 
   /**
@@ -117,6 +119,8 @@ export default class GithubOauthUiPlugin implements MiddlewarePlugin, AuthPlugin
     this.validateConfigProp(config, `auth.${pluginName}.org`)
     this.validateConfigProp(config, `middlewares.${pluginName}.client-id`)
     this.validateConfigProp(config, `middlewares.${pluginName}.client-secret`)
+    this.validateConfigProp(config, `middlewares.${pluginName}.github-login-hostname`)
+    this.validateConfigProp(config, `middlewares.${pluginName}.github-api-url-base`)
   }
 
   private validateConfigProp(config: PluginConfig, prop: string) {

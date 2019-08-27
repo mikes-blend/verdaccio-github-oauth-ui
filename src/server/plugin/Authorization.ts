@@ -3,7 +3,7 @@ import { get } from "lodash"
 import * as querystring from "querystring"
 
 import { Callback } from "./Callback"
-import { PluginConfig } from "./PluginConfig"
+import { PluginConfig, getConfig } from "./PluginConfig"
 
 export class Authorization {
 
@@ -23,8 +23,8 @@ export class Authorization {
    */
   middleware: Handler = (req: Request, res: Response, next) => {
     const id = (req.params.id || "")
-    const url = `${this.config["github-login-hostname"]}/login/oauth/authorize?` + querystring.stringify({
-      client_id: process.env[this.config["client-id"]] || this.config["client-id"],
+    const url = `${getConfig(this.config, "github-login-hostname")}/login/oauth/authorize?` + querystring.stringify({
+      client_id: getConfig(this.config, "client-id"),
       redirect_uri: this.getRedirectUrl(req) + (id ? `/${id}` : ""),
       scope: "read:org",
     })

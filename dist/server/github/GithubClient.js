@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const got_1 = __importDefault(require("got"));
 const lodash_1 = require("lodash");
+const PluginConfig_1 = require("../plugin/PluginConfig");
 class GithubClient {
     constructor(config) {
         this.config = config;
@@ -28,7 +29,7 @@ class GithubClient {
          * [Web application flow](https://bit.ly/2mNSppX).
          */
         this.requestAccessToken = (code, clientId, clientSecret) => __awaiter(this, void 0, void 0, function* () {
-            const url = `https://${this.config["github-login-hostname"]}/login/oauth/access_token`;
+            const url = `${PluginConfig_1.getConfig(this.config, "github-login-hostname")}/login/oauth/access_token`;
             const options = {
                 body: {
                     client_id: clientId,
@@ -45,7 +46,7 @@ class GithubClient {
          * [Get the authenticated user](https://developer.github.com/v3/users/#get-the-authenticated-user)
          */
         this.requestUser = (accessToken) => __awaiter(this, void 0, void 0, function* () {
-            const url = `https://${this.config["github-api-url-base"]}/user`;
+            const url = `${PluginConfig_1.getConfig(this.config, "github-api-url-base")}/user`;
             const options = {
                 headers: {
                     Authorization: "Bearer " + accessToken,
@@ -60,7 +61,7 @@ class GithubClient {
          * [List your organizations](https://developer.github.com/v3/orgs/#list-your-organizations)
          */
         this.requestUserOrgs = (accessToken) => __awaiter(this, void 0, void 0, function* () {
-            const url = `https://${this.config["github-api-url-base"]}/user/orgs`;
+            const url = `${PluginConfig_1.getConfig(this.config, "github-api-url-base")}/user/orgs`;
             const options = {
                 headers: {
                     Authorization: "Bearer " + accessToken,

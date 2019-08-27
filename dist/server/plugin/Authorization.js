@@ -10,6 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
 const querystring = __importStar(require("querystring"));
 const Callback_1 = require("./Callback");
+const PluginConfig_1 = require("./PluginConfig");
 class Authorization {
     constructor(config) {
         this.config = config;
@@ -23,8 +24,8 @@ class Authorization {
          */
         this.middleware = (req, res, next) => {
             const id = (req.params.id || "");
-            const url = `${this.config["github-login-hostname"]}/login/oauth/authorize?` + querystring.stringify({
-                client_id: process.env[this.config["client-id"]] || this.config["client-id"],
+            const url = `${PluginConfig_1.getConfig(this.config, "github-login-hostname")}/login/oauth/authorize?` + querystring.stringify({
+                client_id: PluginConfig_1.getConfig(this.config, "client-id"),
                 redirect_uri: this.getRedirectUrl(req) + (id ? `/${id}` : ""),
                 scope: "read:org",
             });

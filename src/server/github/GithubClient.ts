@@ -4,7 +4,7 @@ import { merge as deepAssign } from "lodash"
 import { OAuth } from "./OAuth"
 import { Organization } from "./Organization"
 import { User } from "./User"
-import {PluginConfig} from "../plugin/PluginConfig";
+import {PluginConfig,getConfig} from "../plugin/PluginConfig";
 
 export class GithubClient {
 
@@ -25,7 +25,7 @@ export class GithubClient {
    * [Web application flow](https://bit.ly/2mNSppX).
    */
   requestAccessToken = async (code: string, clientId: string, clientSecret: string) => {
-    const url = `https://${this.config["github-login-hostname"]}/login/oauth/access_token`
+    const url = `${getConfig(this.config,"github-login-hostname")}/login/oauth/access_token`
     const options: GotJSONOptions = {
       body: {
         client_id: clientId,
@@ -43,7 +43,7 @@ export class GithubClient {
    * [Get the authenticated user](https://developer.github.com/v3/users/#get-the-authenticated-user)
    */
   requestUser = async (accessToken: string) => {
-    const url = `https://${this.config["github-api-url-base"]}/user`
+    const url = `${getConfig(this.config, "github-api-url-base")}/user`
     const options: GotJSONOptions = {
       headers: {
         Authorization: "Bearer " + accessToken,
@@ -59,7 +59,7 @@ export class GithubClient {
    * [List your organizations](https://developer.github.com/v3/orgs/#list-your-organizations)
    */
   requestUserOrgs = async (accessToken: string) => {
-    const url = `https://${this.config["github-api-url-base"]}/user/orgs`
+    const url = `${getConfig(this.config, "github-api-url-base")}/user/orgs`
     const options: GotJSONOptions = {
       headers: {
         Authorization: "Bearer " + accessToken,
